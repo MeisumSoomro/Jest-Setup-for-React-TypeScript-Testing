@@ -1,0 +1,11 @@
+.dragging-over {
+  @apply bg-gray-50 rounded-lg transition-colors duration-200;
+}
+
+.module-dragging {
+  @apply opacity-50 cursor-grabbing;
+}
+
+.module-drag-preview {
+  @apply shadow-xl rotate-2 scale-105;
+} 

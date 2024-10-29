@@ -1,0 +1,108 @@
+📁 src/
+  ├── 📁 app/                    # Next.js 14 App Router directory
+  │   ├── 📁 (admin)/           # Admin-only routes (protected)
+  │   │   └── dashboard/
+  │   │       └── page.tsx
+  │   ├── 📁 (auth)/            # Authentication related routes
+  │   │   ├── forgot-password/
+  │   │   │   └── page.tsx
+  │   │   ├── sign-in/[[...sign-in]]/
+  │   │   │   └── page.tsx
+  │   │   └── sign-up/[[...sign-up]]/
+  │   │       └── page.tsx
+  │   ├── 📁 (dashboard)/       # User dashboard routes (protected)
+  │   │   ├── analytics/
+  │   │   │   └── page.tsx
+  │   │   ├── instructor/
+  │   │   │   └── page.tsx
+  │   │   ├── payments/
+  │   │   │   └── page.tsx
+  │   │   ├── profile/
+  │   │   │   └── page.tsx
+  │   │   ├── resources/
+  │   │   │   └── page.tsx
+  │   │   └── student/
+  │   │       └── page.tsx
+  │   └── 📁 api/               # API routes for backend functionality
+  │       ├── 📁 __tests__/     # API endpoint tests
+  │       │   └── notifications.test.ts
+  │       ├── docs/             # API documentation (Swagger)
+  │       │   └── page.tsx
+  │       ├── notifications/    # Notification endpoints
+  │       │   └── route.ts
+  │       └── progress/         # Learning progress tracking endpoints
+  │           └── [studentId]/
+  │               └── [courseId]/
+  │                   └── route.ts
+  ├── 📁 components/            # React components
+  │   ├── 📁 admin/            # Admin-specific components
+  │   │   ├── content-moderation.tsx
+  │   │   ├── platform-analytics.tsx
+  │   │   ├── system-settings.tsx
+  │   │   └── user-management.tsx
+  │   ├── 📁 courses/          # Course management components
+  │   │   ├── 📁 __tests__/    # Component tests
+  │   │   │   └── course-creator-wizard.test.tsx
+  │   │   ├── assignment-manager.tsx
+  │   │   ├── course-creator-wizard.tsx
+  │   │   ├── progress-tracker.tsx
+  │   │   └── quiz-component.tsx
+  │   └── 📁 shared/           # Reusable components
+  │       ├── accessibility.tsx
+  │       ├── advanced-search.tsx
+  │       ├── bulk-operations.tsx
+  │       ├── calendar.tsx
+  │       ├── content-manager.tsx
+  │       ├── error-boundary.tsx
+  │       ├── feedback-system.tsx
+  │       ├── gamification.tsx
+  │       └── report-generator.tsx
+  ├── 📁 lib/                  # Utility functions and services
+  │   ├── 📁 integrations/     # Third-party service integrations
+  │   │   ├── google-calendar.ts
+  │   │   ├── google-drive.ts
+  │   │   ├── index.ts
+  │   │   ├── microsoft-teams.ts
+  │   │   └── zoom.ts
+  │   ├── 📁 monitoring/       # Logging and monitoring utilities
+  │   │   └── logger.ts
+  │   ├── 📁 utils/           # Helper functions
+  │   │   ├── cache.ts
+  │   │   └── error-handler.ts
+  │   └── socket.ts           # WebSocket configuration
+  │
+  ├── 📁 middleware/          # Custom middleware (rate limiting, auth)
+  │   └── rate-limit.ts
+  ├── 📁 types/              # TypeScript type definitions
+  │   └── api.ts
+  └── 📁 styles/             # Global styles and CSS modules
+      └── responsive.css
+
+📁 prisma/                   # Database schema and migrations
+  └── schema.prisma          # Prisma schema definition
+
+📁 public/                   # Static assets
+  └── images/               # Image assets
+
+📁 e2e/                     # End-to-end tests
+  └── tests/               # Playwright test files
+
+📁 .github/                 # GitHub configuration
+  └── 📁 workflows/        # CI/CD pipeline definitions
+      └── main.yml         # Main workflow for testing and deployment
+
+📁 .husky/                 # Git hooks
+  └── pre-commit          # Pre-commit checks (lint, test)
+
+# Configuration Files
+.env.example              # Environment variables template
+.eslintrc.json           # ESLint configuration
+.gitignore               # Git ignore rules
+jest.config.ts           # Jest testing configuration
+jest.setup.ts           # Jest setup file
+middleware.ts           # Next.js middleware configuration
+next.config.js         # Next.js configuration
+package.json           # Project dependencies and scripts
+playwright.config.ts   # E2E testing configuration
+README.md             # Project documentation
+tsconfig.json         # TypeScript configuration 

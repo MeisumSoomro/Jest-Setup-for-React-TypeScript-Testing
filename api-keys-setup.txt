@@ -1,0 +1,74 @@
+# API Keys Setup Guide
+
+1. Clerk Authentication (https://clerk.com)
+   - Sign up for a Clerk account
+   - Create a new application
+   - Go to API Keys in dashboard
+   - Copy these keys:
+     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_****
+     CLERK_SECRET_KEY=sk_test_****
+
+2. Stripe Payments (https://stripe.com)
+   - Create a Stripe account
+   - Go to Developers → API keys
+   - Copy these keys:
+     STRIPE_SECRET_KEY=sk_test_****
+     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_****
+   - For webhook setup:
+     - Install Stripe CLI
+     - Run: stripe listen --forward-to localhost:3000/api/stripe/webhook
+     - Copy webhook signing secret:
+     STRIPE_WEBHOOK_SECRET=whsec_****
+
+3. Uploadcare (https://uploadcare.com)
+   - Create an Uploadcare account
+   - Go to Dashboard → API Keys
+   - Copy public key:
+     NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY=****
+
+4. PostgreSQL Database
+   - Local setup:
+     DATABASE_URL="postgresql://username:password@localhost:5432/database_name"
+   
+   - Railway/Supabase setup:
+     - Create new project
+     - Go to Connect → Connection URL
+     - Copy connection string:
+     DATABASE_URL="postgresql://****"
+
+5. App URL Configuration
+   Development:
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   
+   Production:
+   NEXT_PUBLIC_APP_URL=https://your-domain.com
+
+# Additional Setup Steps:
+
+1. Clerk Webhook Setup:
+   - In Clerk Dashboard → Webhooks
+   - Add Endpoint: https://your-domain.com/api/webhook
+   - Select events: user.created, user.updated
+   - Copy signing secret to:
+     CLERK_WEBHOOK_SECRET=****
+
+2. Stripe Connect Setup (for marketplace):
+   - Enable Connect in Stripe Dashboard
+   - Configure OAuth settings
+   - Add redirect URIs:
+     - http://localhost:3000/stripe/connect/callback (development)
+     - https://your-domain.com/stripe/connect/callback (production)
+
+3. Uploadcare Security Setup:
+   - In Uploadcare Dashboard → Security
+   - Enable secure uploads
+   - Configure allowed file types (video/*)
+   - Set maximum file size
+
+4. Database Security:
+   - Enable SSL for production
+   - Add to connection string: ?sslmode=require
+   - Set up database backups
+   - Configure connection pooling
+
+# Environment Variables Template: 

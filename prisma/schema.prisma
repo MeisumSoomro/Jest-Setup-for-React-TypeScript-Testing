@@ -1,0 +1,133 @@
+/**
+ * Prisma Schema Definition
+ * 
+ * Purpose: Defines database structure and relationships
+ * Usage: Used by Prisma Client for database operations
+ * 
+ * Key Models:
+ * - User: Manages user accounts and roles
+ * - Course: Stores course information
+ * - Lesson: Individual course lessons
+ * - Enrollment: Tracks student enrollments
+ * 
+ * Commands:
+ * - npm run prisma:generate (Generate Prisma Client)
+ * - npm run prisma:push (Update database schema)
+ */
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(STUDENT)
+  courses   Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  description String?
+  imageUrl    String?
+  price       Float?
+  isPublished Boolean  @default(false)
+  categoryId  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category    Category?    @relation(fields: [categoryId], references: [id])
+  attachments Attachment[]
+  chapters    Chapter[]
+  purchases   Purchase[]
+
+  @@index([categoryId])
+}
+
+model Category {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  courses Course[]
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model Chapter {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  videoUrl    String?
+  position    Int
+  isPublished Boolean  @default(false)
+  isFree      Boolean  @default(false)
+  courseId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  course     Course      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  userProgress UserProgress[]
+
+  @@index([courseId])
+}
+
+model UserProgress {
+  id          String   @id @default(uuid())
+  userId      String
+  chapterId   String
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  chapter     Chapter    @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chapterId])
+  @@index([chapterId])
+}
+
+model Purchase {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  stripeCustomerId String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  INSTRUCTOR
+  STUDENT
+}

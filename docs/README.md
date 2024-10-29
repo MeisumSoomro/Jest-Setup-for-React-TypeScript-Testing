@@ -1,0 +1,3 @@
+# EduFlow Documentation
+
+## 📚 Documentation Structure 

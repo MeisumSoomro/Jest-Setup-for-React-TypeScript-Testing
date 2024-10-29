@@ -1,0 +1,95 @@
+# 1. Create Next.js project
+npx create-next-app@latest . --typescript --tailwind --app --use-npm
+
+# 2. Install dependencies
+npm install @prisma/client @trpc/client @trpc/server @tanstack/react-query zod
+npm install @uploadthing/react uploadthing
+npm install @stripe/stripe-js stripe
+npm install socket.io socket.io-client
+npm install @microsoft/teams-js @zoom/videosdk
+npm install @react-email/components nodemailer
+npm install chart.js react-chartjs-2
+npm install react-beautiful-dnd
+npm install @headlessui/react @heroicons/react
+
+# 3. Install dev dependencies
+npm install -D prisma typescript @types/node @types/react
+npm install -D tailwindcss postcss autoprefixer
+npm install -D jest @testing-library/react @testing-library/jest-dom
+
+# 4. Initialize Prisma
+npx prisma init
+
+# 5. Create database
+# Option 1: Using createdb (if PostgreSQL CLI tools are in PATH)
+createdb your-database-name
+
+# Option 2: Using psql
+psql -U postgres -c "CREATE DATABASE your-database-name"
+
+# Option 3: Using psql interactive mode
+# psql -U postgres
+# Then type: CREATE DATABASE your-database-name;
+# Then type: \q
+
+# 6. Generate Prisma client and run migrations
+npx prisma generate
+npx prisma migrate dev --name init
+
+# 7. Add scripts to package.json
+npm pkg set scripts.dev="next dev"
+npm pkg set scripts.build="next build"
+npm pkg set scripts.start="next start"
+npm pkg set scripts.lint="next lint"
+npm pkg set scripts.postinstall="prisma generate"
+
+# 8. Set up environment variables
+# Copy .env.example to .env
+cp .env.example .env
+
+# 9. Start development server
+npm run dev
+
+# Additional useful commands:
+
+# Reset database (if needed)
+npx prisma migrate reset
+
+# Open Prisma Studio (database GUI)
+npx prisma studio
+
+# Format Prisma schema
+npx prisma format
+
+# Check for TypeScript errors
+npm run lint
+
+# Build for production
+npm run build
+
+# Start production server
+npm run start
+
+# Update dependencies
+npm update
+
+# Clean install
+rm -rf node_modules
+rm package-lock.json
+npm install
+
+# Troubleshooting commands:
+# Clear Next.js cache
+rm -rf .next
+
+# Check Node.js version
+node -v  # Should be 18.x or higher
+
+# Check npm version
+npm -v   # Should be 8.x or higher
+
+# Check PostgreSQL status
+pg_isready
+
+# View logs
+tail -f .next/error.log 
